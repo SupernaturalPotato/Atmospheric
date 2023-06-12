@@ -1,1 +1,5 @@
 # Atmospheric
+
+A small project which implements atmospheric scattering in a GLSL fragment shader. Details can be found in [this GPU Gems 2 article](https://developer.nvidia.com/gpugems/gpugems2/part-ii-shading-lighting-and-shadows/chapter-16-accurate-atmospheric-scattering). The shader can run on most mid-range GPUs in real time, but the computational cost is still too high for use in real-time applications. [This paper](https://odr.chalmers.se/server/api/core/bitstreams/c188a150-4d52-4456-b257-2e95156dd8d3/content) provides a detailed explanation of the use of 3D textures as lookup tables to reduce the computational cost significantly. I will implement this technique in the future.
+
+This project currently uses a small framework created for the Computer Graphics course of Budapest University of Technology and Economics. The framework is available [here](http://cg.iit.bme.hu/~szirmay/grafika/GrafikaHaziCsomag.zip). To build this program, download and extract the framework, and replace the Skeleton.cpp file with the one found in this repository.
