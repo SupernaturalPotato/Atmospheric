@@ -220,44 +220,6 @@ unsigned HVBO;
 
 bool keysDown[256];
 
-void tryBuffers() {
-
-	std::vector<vec3> vertices = {
-		vec3(-1.f, -1.f, 0.f),
-		vec3(1.f, -1.f, 0.f),
-		vec3(0.f, 1.f, 0.f)
-	};
-	std::vector<GLuint> indices = {
-		0, 1, 2
-	};
-
-	glGenBuffers(1, &HVBO);
-
-	glBindBuffer(GL_ARRAY_BUFFER, HVBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vec3) * 3 + sizeof(GLuint) * 3, nullptr, GL_STATIC_DRAW);
-	glBufferSubData(GL_ARRAY_BUFFER, 0, 3 * sizeof(vec3), vertices.data());
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, HVBO);
-	glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 3 * sizeof(vec3), 3 * sizeof(GLuint), indices.data());	
-
-	glBindBuffer(GL_ARRAY_BUFFER, HVBO);
-	
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vec3), 0);
-
-}
-
-void drawTriangle() {
-
-	glBindBuffer(GL_ARRAY_BUFFER, HVBO);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vec3), 0);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, HVBO);
-	glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, (void*)9);
-}
-
 void onInitialization() {
 
 	for (bool& k : keysDown) k = false;
@@ -275,15 +237,12 @@ void onInitialization() {
 	glViewport(0, 0, windowWidth, windowHeight);
 	glEnable(GL_FRAMEBUFFER_SRGB);
 	glClearColor(0, 0, 0, 1);
-
-	tryBuffers();
 }
 
 void onDisplay() {
 
 	glClear(GL_COLOR_BUFFER_BIT);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
-	drawTriangle();
 	glutSwapBuffers();
 }
 
